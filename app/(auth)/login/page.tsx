@@ -241,12 +241,12 @@ export default function LoginPage() {
                           12 atau 14 digit
                         </span>
                       </div>
-                      <div className="relative flex items-center rounded-xl border border-slate-300 bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
+                      <div className="relative flex items-center rounded-xl border border-[#cbd5e1] bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
                         <div className="w-12 h-full flex items-center justify-center bg-slate-50 border-r border-slate-200 shrink-0">
                           <span className="material-symbols-outlined text-slate-400 text-[20px]">id_card</span>
                         </div>
                         <input
-                          className="w-full bg-transparent px-4 py-3 text-sm font-mono font-bold text-slate-900 outline-none placeholder:text-slate-400 placeholder:font-normal"
+                          className="w-full bg-transparent px-4 py-3 text-sm font-mono font-bold text-slate-900 outline-none placeholder:text-[#94a3b8] placeholder:font-[400]"
                           id="input-nisn"
                           placeholder="Contoh: 25-3101-0982-014"
                           required
@@ -275,7 +275,7 @@ export default function LoginPage() {
                           <span className="text-red-500 font-bold">*</span>
                         </label>
                       </div>
-                      <div className="relative flex items-center rounded-xl border border-slate-300 bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
+                      <div className="relative flex items-center rounded-xl border border-[#cbd5e1] bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
                         <div className="w-12 h-full flex items-center justify-center bg-slate-50 border-r border-slate-200 shrink-0">
                           <span className="material-symbols-outlined text-slate-400 text-[20px]">calendar_month</span>
                         </div>
@@ -305,12 +305,12 @@ export default function LoginPage() {
                           Isi Token Demo: <code className="font-mono bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100 ml-1">XK9PW2</code>
                         </button>
                       </div>
-                      <div className="relative flex items-center rounded-xl border-2 border-blue-500 bg-blue-50/30 focus-within:bg-white focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm overflow-hidden group">
-                        <div className="w-12 h-full flex items-center justify-center bg-blue-50 border-r border-blue-200 shrink-0 group-focus-within:bg-blue-100 transition-colors">
+                      <div className="relative flex items-center rounded-xl border-2 border-blue-500 bg-[#eff6ff]/30 focus-within:bg-white focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm overflow-hidden group">
+                        <div className="w-12 h-full flex items-center justify-center bg-[#eff6ff] border-r border-blue-200 shrink-0 group-focus-within:bg-blue-100 transition-colors">
                           <span className="material-symbols-outlined text-blue-600 text-[22px]">vpn_key</span>
                         </div>
                         <input
-                          className="w-full bg-transparent px-4 py-3 text-xl sm:text-2xl font-mono font-black tracking-[0.25em] text-slate-900 uppercase outline-none placeholder:text-slate-300 placeholder:font-normal placeholder:tracking-normal"
+                          className="w-full bg-transparent px-4 py-3 text-xl sm:text-2xl font-mono font-black tracking-[0.25em] text-slate-900 uppercase outline-none placeholder:text-[#cbd5e1] placeholder:font-[400] placeholder:tracking-[0em]"
                           id="input-token"
                           maxLength={6}
                           placeholder="CONTOH: XK9PW2"
@@ -333,7 +333,7 @@ export default function LoginPage() {
                     {/* Submit Button */}
                     <div className="pt-4">
                       <button
-                        className="w-full bg-blue-700 hover:bg-blue-800 active:bg-blue-900 disabled:opacity-70 text-white font-bold text-base py-4 px-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 group overflow-hidden relative"
+                        className="w-full bg-[#1d4ed8] hover:bg-blue-800 active:bg-blue-900 disabled:opacity-70 text-white font-bold text-base py-4 px-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 group overflow-hidden relative"
                         disabled={isSubmitting || submitStatus === "success"}
                         type="submit"
                       >
@@ -364,7 +364,7 @@ export default function LoginPage() {
                   <form className="flex flex-col gap-5 pl-0 sm:pl-12" onSubmit={handleProctorSubmit}>
                     <div className="flex flex-col gap-2">
                       <label className="text-sm font-semibold text-slate-800" htmlFor="proctor-nip">NIP / ID Proktor Ruangan</label>
-                      <div className="relative flex items-center rounded-xl border border-slate-300 bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
+                      <div className="relative flex items-center rounded-xl border border-[#cbd5e1] bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
                         <div className="w-12 h-full flex items-center justify-center bg-slate-50 border-r border-slate-200 shrink-0">
                           <span className="material-symbols-outlined text-slate-400 text-[20px]">badge</span>
                         </div>
@@ -380,7 +380,7 @@ export default function LoginPage() {
 
                     <div className="flex flex-col gap-2">
                       <label className="text-sm font-semibold text-slate-800" htmlFor="proctor-pass">Kata Sandi / Private Key</label>
-                      <div className="relative flex items-center rounded-xl border border-slate-300 bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
+                      <div className="relative flex items-center rounded-xl border border-[#cbd5e1] bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
                         <div className="w-12 h-full flex items-center justify-center bg-slate-50 border-r border-slate-200 shrink-0">
                           <span className="material-symbols-outlined text-slate-400 text-[20px]">key</span>
                         </div>
@@ -396,7 +396,7 @@ export default function LoginPage() {
 
                     <div className="flex flex-col gap-2">
                       <label className="text-sm font-semibold text-slate-800" htmlFor="proctor-lab-select">Alokasi Laboratorium CBT</label>
-                      <div className="relative flex items-center rounded-xl border border-slate-300 bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
+                      <div className="relative flex items-center rounded-xl border border-[#cbd5e1] bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all shadow-sm overflow-hidden">
                         <div className="w-12 h-full flex items-center justify-center bg-slate-50 border-r border-slate-200 shrink-0">
                           <span className="material-symbols-outlined text-slate-400 text-[20px]">meeting_room</span>
                         </div>

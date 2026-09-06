@@ -38,164 +38,8 @@ export default function ProctorDashboard() {
   };
 
   return (
-    <div className="bg-slate-50 font-body-default text-slate-800 min-h-screen flex selection:bg-blue-100 selection:text-blue-900">
-      {/* 
-        ========================================================================
-        SIDEBAR NAVIGATION (Sleek Dark Mode style) 
-        ======================================================================== 
-      */}
-      <aside className="fixed top-0 left-0 bottom-0 w-72 bg-[#0a0f1c] text-slate-300 z-50 flex flex-col justify-between shadow-2xl border-r border-slate-800/50">
-        <div className="flex flex-col flex-1 overflow-y-auto custom-scrollbar">
-          {/* Brand & Room Info */}
-          <div className="p-6 border-b border-slate-800/80 flex flex-col gap-4 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-            
-            <Image
-              alt="CBT Pro Logo"
-              className="h-10 w-auto object-contain object-left relative z-10"
-              src="/logo.svg"
-              width={240}
-              height={60}
-              priority
-            />
-            
-            <div className="flex items-center justify-between mt-2 relative z-10">
-              <div className="flex flex-col">
-                <span className="text-xs font-bold tracking-widest text-slate-400 uppercase">
-                  Sesi Pengawasan
-                </span>
-                <span className="text-white font-semibold text-sm">
-                  RUANG UTBK-08
-                </span>
-              </div>
-              <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse"></span>
-                <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Online</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Links */}
-          <nav className="p-4 space-y-8 flex-1 mt-2 relative z-10">
-            {/* Group 1 */}
-            <div className="space-y-2">
-              <p className="px-3 text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-3">
-                Monitoring Utama
-              </p>
-              <Link
-                href="#"
-                onClick={() => setActiveTab("dashboard")}
-                className={`flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 ${
-                  activeTab === "dashboard"
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800/50"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[20px]">dashboard</span>
-                  <span className="text-[13px] font-medium">Dashboard Live</span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-slate-900/50 text-[10px] font-bold">38</span>
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-[20px]">grid_view</span>
-                <span className="text-[13px] font-medium">Denah Lab & Workstation</span>
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-[20px]">key</span>
-                <span className="text-[13px] font-medium">Rotasi Token</span>
-              </Link>
-            </div>
-
-            {/* Group 2 */}
-            <div className="space-y-2">
-              <p className="px-3 text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-3">
-                Integritas & Laporan
-              </p>
-              <Link
-                href="#"
-                className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200 group"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[20px] group-hover:text-red-400 transition-colors">shield_alert</span>
-                  <span className="text-[13px] font-medium">Log Integritas</span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/20">2 Alert</span>
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-[20px]">description</span>
-                <span className="text-[13px] font-medium">Berita Acara (BAP)</span>
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-[20px]">fact_check</span>
-                <span className="text-[13px] font-medium">Daftar Presensi</span>
-              </Link>
-            </div>
-            
-             {/* Group 3 */}
-             <div className="space-y-2">
-              <p className="px-3 text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-3">
-                Pengaturan
-              </p>
-              <Link
-                href="#"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-[20px]">devices</span>
-                <span className="text-[13px] font-medium">Manajemen Kiosk</span>
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-[20px]">support_agent</span>
-                <span className="text-[13px] font-medium">Hubungi Teknisi</span>
-              </Link>
-            </div>
-          </nav>
-        </div>
-
-        {/* Proctor Profile Footer */}
-        <div className="p-4 border-t border-slate-800/80 bg-[#0a0f1c]/80 backdrop-blur-md">
-          <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-700/50 hover:bg-slate-800/60 transition-colors cursor-pointer group">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-linear-to-tr from-blue-600 to-blue-400 flex items-center justify-center shrink-0 text-white font-bold shadow-inner">
-                HM
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm text-white font-semibold truncate leading-tight group-hover:text-blue-200 transition-colors">
-                  Drs. H. Mulyono
-                </p>
-                <p className="text-[10px] text-slate-400 truncate mt-0.5">
-                  NIP 19780512-200501
-                </p>
-              </div>
-            </div>
-            <button className="text-slate-400 hover:text-white transition-colors p-1" title="Logout">
-              <span className="material-symbols-outlined text-[20px]">logout</span>
-            </button>
-          </div>
-        </div>
-      </aside>
-
-      {/* 
-        ========================================================================
-        MAIN CONTENT AREA 
-        ======================================================================== 
-      */}
-      <main className="w-full pl-72 bg-slate-50 min-h-screen flex flex-col">
+    <>
+      <main className="flex-1 flex flex-col relative w-full">
         
         {/* Top Header Banner */}
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200 px-8 py-5 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 shadow-sm">
@@ -653,20 +497,11 @@ export default function ProctorDashboard() {
 
       {/* Global minimal styles for scrollbar in this layout */}
       <style dangerouslySetInnerHTML={{__html: `
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(148, 163, 184, 0.3);
-          border-radius: 10px;
-        }
-        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
-          background: rgba(148, 163, 184, 0.5);
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); }
       `}} />
-    </div>
+    </>
   );
 }

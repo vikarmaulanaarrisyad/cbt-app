@@ -22,7 +22,9 @@ export const Alert = {
       icon: 'success',
       title,
       text,
-      confirmButtonText: 'Tutup',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
     });
   },
 
