@@ -1,0 +1,210 @@
+// Prisma schema file for CBT App
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+  PROCTOR
+  TEACHER
+  STUDENT
+}
+
+enum SemesterType {
+  GANJIL
+  GENAP
+  ANTARA
+}
+
+model School {
+  id             String    @id @default(cuid())
+  name           String
+  npsn           String    @unique
+  nsm            String?
+  educationLevel String    // "MI", "MTS", "MA"
+  city           String
+  province       String
+  address        String?
+  contactEmail   String
+  contactPhone   String?
+  proctorId      String?
+  proctorName    String?
+  labAllocation  String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([npsn])
+  @@index([educationLevel])
+}
+
+model User {
+  id                String    @id @default(cuid())
+  nip               String    @unique
+  name              String
+  email             String?   @unique
+  password          String
+  role              Role      @default(PROCTOR)
+  labAllocation     String?
+  educationLevel    String?   @default("SEMUA")
+  schoolId          String?
+  schoolName        String?
+  npsn              String?
+  customPermissions String?
+  isActive          Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([nip])
+  @@index([schoolId])
+  @@index([role])
+}
+
+model Student {
+  id             String    @id @default(cuid())
+  nisn           String    @unique
+  name           String
+  dateOfBirth    DateTime
+  classGroup     String?
+  educationLevel String?   @default("MA")
+  schoolId       String?
+  schoolName     String?
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([nisn])
+  @@index([schoolId])
+  @@index([educationLevel])
+}
+
+model ExamToken {
+  id           String    @id @default(cuid())
+  token        String    @unique
+  sessionName  String
+  expiresAt    DateTime
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+}
+
+model Semester {
+  id           String       @id @default(cuid())
+  code         String       @unique
+  name         String
+  academicYear String       // Format: e.g. "2024/2025"
+  type         SemesterType @default(GANJIL)
+  startDate    DateTime
+  endDate      DateTime
+  isActive     Boolean      @default(false)
+  description  String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([academicYear])
+  @@index([isActive])
+}
+
+enum Difficulty {
+  MUDAH
+  SEDANG
+  SULIT
+}
+
+enum QuestionStatus {
+  AKTIF
+  DRAFT
+}
+
+model Question {
+  id             String         @id @default(cuid())
+  text           String
+  category       String
+  educationLevel String         @default("SEMUA") // "MI", "MTS", "MA", "SEMUA"
+  schoolId       String?
+  difficulty     Difficulty     @default(SEDANG)
+  status         QuestionStatus @default(AKTIF)
+  options        Json?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([category])
+  @@index([educationLevel])
+  @@index([status])
+  @@index([schoolId])
+}
+
+model ClassGroup {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  name            String
+  educationLevel  String   @default("MA") // "MI", "MTS", "MA"
+  gradeLevel      String   // e.g. "1"-"6" (MI), "7"-"9" (MTS), "10"-"12" (MA)
+  major           String?  // e.g. "MIPA", "IPS", "Keagamaan", "Umum", "RPL"
+  academicYear    String   @default("2024/2025")
+  capacity        Int      @default(36)
+  homeTeacherName String?
+  schoolId        String?
+  schoolName      String?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([educationLevel])
+  @@index([gradeLevel])
+  @@index([academicYear])
+  @@index([isActive])
+  @@index([schoolId])
+}
+
+model Subject {
+  id             String   @id @default(cuid())
+  code           String   @unique
+  name           String
+  educationLevel String   @default("SEMUA") // "MI", "MTS", "MA", "SEMUA"
+  schoolId       String?
+  category       String   @default("Umum") // e.g. "PAI & Bahasa Arab", "Wajib Umum", "Peminatan MIPA", "Peminatan IPS", "Peminatan Keagamaan"
+  gradeLevel     String?  @default("Semua") // e.g. "Semua", "1"-"6", "VII"-"IX", "X"-"XII"
+  passingGrade   Float    @default(75.0) // KKM (Kriteria Ketuntasan Minimal)
+  description    String?
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([code])
+  @@index([educationLevel])
+  @@index([category])
+  @@index([gradeLevel])
+  @@index([isActive])
+  @@index([schoolId])
+}
+
+model IntegrityLog {
+  id          String   @id @default(cuid())
+  schoolId    String?
+  nisn        String
+  studentName String
+  classGroup  String
+  workstation String
+  ipAddress   String
+  eventType   String
+  severity    String   @default("WARNING") // "CRITICAL", "WARNING", "INFO"
+  description String
+  status      String   @default("UNRESOLVED") // "UNRESOLVED", "RESOLVED", "WARNING_ISSUED", "SESSION_RESET", "FORCE_SUBMITTED"
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  @@index([schoolId])
+  @@index([status])
+  @@index([severity])
+  @@index([createdAt])
+}
+
+
+
+

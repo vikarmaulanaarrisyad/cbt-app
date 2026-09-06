@@ -1,0 +1,85 @@
+// use prisma-next
+
+enum Role {
+  ADMIN
+  PROCTOR
+  TEACHER
+  STUDENT
+}
+
+enum SemesterType {
+  GANJIL
+  GENAP
+  ANTARA
+}
+
+model User {
+  id            String            @id
+  nip           String            @unique
+  name          String
+  email         String?           @unique
+  password      String
+  role          Role              @default(PROCTOR)
+  labAllocation String?
+  customPermissions String?
+  isActive      Boolean           @default(true)
+  createdAt     TimestamptzString @default(now())
+  updatedAt     TimestamptzString @default(now())
+}
+
+model Student {
+  id          String            @id
+  nisn        String            @unique
+  name        String
+  dateOfBirth TimestamptzString
+  classGroup  String?
+  isActive    Boolean           @default(true)
+  createdAt   TimestamptzString @default(now())
+  updatedAt   TimestamptzString @default(now())
+}
+
+model ExamToken {
+  id          String            @id
+  token       String            @unique
+  sessionName String
+  expiresAt   TimestamptzString
+  isActive    Boolean           @default(true)
+  createdAt   TimestamptzString @default(now())
+}
+
+model Semester {
+  id           String            @id
+  code         String            @unique
+  name         String
+  academicYear String
+  type         SemesterType      @default(GANJIL)
+  startDate    TimestamptzString
+  endDate      TimestamptzString
+  isActive     Boolean           @default(false)
+  description  String?
+  createdAt    TimestamptzString @default(now())
+  updatedAt    TimestamptzString @default(now())
+}
+
+enum Difficulty {
+  MUDAH
+  SEDANG
+  SULIT
+}
+
+enum QuestionStatus {
+  AKTIF
+  DRAFT
+}
+
+model Question {
+  id         String            @id
+  text       String
+  category   String
+  difficulty Difficulty        @default(SEDANG)
+  status     QuestionStatus    @default(AKTIF)
+  options    String?
+  createdAt  TimestamptzString @default(now())
+  updatedAt  TimestamptzString @default(now())
+}
+
