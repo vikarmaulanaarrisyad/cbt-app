@@ -1,0 +1,1 @@
+saya mau siswa bisa di inputkan ke dalam rombel yang sudah dibuat sebulumnya, dan wali kelas bisa di ambil dari data guru 
