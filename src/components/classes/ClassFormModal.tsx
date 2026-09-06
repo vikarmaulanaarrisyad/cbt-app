@@ -2,6 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 
+interface TeacherOption {
+  id: string;
+  name: string;
+  nip?: string;
+}
+
+
 export interface ClassGroupItem {
   id: string;
   code: string;
@@ -74,6 +81,27 @@ export default function ClassFormModal({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
+
+  // ── Teacher list from DB ──────────────────────────────────────────────
+  const [teachers, setTeachers] = useState<TeacherOption[]>([]);
+  const [loadingTeachers, setLoadingTeachers] = useState(false);
+  const [teacherSearch, setTeacherSearch] = useState("");
+
+  useEffect(() => {
+    if (!isOpen) return;
+    setLoadingTeachers(true);
+    fetch("/api/users?role=TEACHER")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.data)) {
+          setTeachers(data.data.map((u: any) => ({ id: u.id, name: u.name, nip: u.nip })));
+        } else {
+          setTeachers([]);
+        }
+      })
+      .catch(() => setTeachers([]))
+      .finally(() => setLoadingTeachers(false));
+  }, [isOpen]);
 
   useEffect(() => {
     if (classToEdit) {
@@ -467,16 +495,77 @@ export default function ClassFormModal({
 
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Nama Wali Kelas
+                Wali Kelas
               </label>
-              <input
-                type="text"
-                name="homeTeacherName"
-                placeholder="Contoh: Ustadzah Fatimah, S.Pd.I."
-                value={formData.homeTeacherName}
-                onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-medium focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
-              />
+
+              {/* Search filter */}
+              {teachers.length > 5 && (
+                <div className="relative mb-1.5">
+                  <span className="absolute left-2.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[15px] text-slate-400">search</span>
+                  <input
+                    type="text"
+                    value={teacherSearch}
+                    onChange={(e) => setTeacherSearch(e.target.value)}
+                    placeholder="Cari nama guru..."
+                    className="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-blue-500 font-medium"
+                  />
+                </div>
+              )}
+
+              <div className="relative">
+                <select
+                  name="homeTeacherName"
+                  value={formData.homeTeacherName}
+                  onChange={handleChange}
+                  disabled={loadingTeachers}
+                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-slate-300 text-sm font-medium focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all bg-white appearance-none disabled:opacity-60"
+                >
+                  <option value="">— Pilih Wali Kelas —</option>
+                  {loadingTeachers ? (
+                    <option disabled>Memuat data guru...</option>
+                  ) : teachers.length === 0 ? (
+                    <option disabled>Belum ada data guru (TEACHER)</option>
+                  ) : (
+                    teachers
+                      .filter((t) =>
+                        teacherSearch
+                          ? t.name.toLowerCase().includes(teacherSearch.toLowerCase())
+                          : true
+                      )
+                      .map((t) => (
+                        <option key={t.id} value={t.name}>
+                          {t.name}{t.nip ? ` (${t.nip})` : ""}
+                        </option>
+                      ))
+                  )}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                  {loadingTeachers ? (
+                    <span className="w-3.5 h-3.5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <span className="material-symbols-outlined text-slate-400 text-[18px]">expand_more</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Fallback manual input if no teachers */}
+              {!loadingTeachers && teachers.length === 0 && (
+                <input
+                  type="text"
+                  name="homeTeacherName"
+                  value={formData.homeTeacherName}
+                  onChange={handleChange}
+                  placeholder="Ketik nama wali kelas secara manual"
+                  className="w-full mt-2 px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-medium focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
+                />
+              )}
+
+              {formData.homeTeacherName && (
+                <p className="text-[10px] text-blue-600 font-semibold mt-1 flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[11px]">check_circle</span>
+                  Wali kelas: {formData.homeTeacherName}
+                </p>
+              )}
             </div>
           </div>
 

@@ -189,6 +189,7 @@ export default function AppSidebar({
             title: "Manajemen Master Data",
             links: [
               { href: "/proctor/dashboard/classes", icon: "meeting_room", label: classLabel },
+              { href: "/proctor/dashboard/students", icon: "school", label: effectiveLevel ? `Data Siswa (${effectiveLevel})` : "Data Siswa" },
               { href: "/proctor/dashboard/subjects", icon: "menu_book", label: subjectLabel, permission: "subjects:view" },
               { href: "/proctor/dashboard/users", icon: "manage_accounts", label: "Kelola User & Hak Akses", permission: "users:manage" },
               { href: "/proctor/dashboard/semesters", icon: "date_range", label: "Master Semester & Tahun", permission: "semesters:manage" },
@@ -269,6 +270,7 @@ export default function AppSidebar({
             title: "Master Data & Rombel",
             links: [
               { href: "/proctor/dashboard/classes", icon: "meeting_room", label: classLabel },
+              { href: "/proctor/dashboard/students", icon: "school", label: effectiveLevel ? `Data Siswa (${effectiveLevel})` : "Data Siswa" },
               { href: "/proctor/dashboard/subjects", icon: "menu_book", label: subjectLabel, permission: "subjects:view" },
             ],
           },
